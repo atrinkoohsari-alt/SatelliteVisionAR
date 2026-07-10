@@ -12,3 +12,30 @@ video.srcObject=stream;
 console.log(err);
 document.getElementById("info").innerHTML = err.name + "<br>" + err.message;
 });
+// گرفتن موقعیت GPS
+
+if ("geolocation" in navigator) {
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            document.getElementById("info").innerHTML =
+
+            "Latitude : " + position.coords.latitude + "<br>" +
+
+            "Longitude : " + position.coords.longitude;
+
+        },
+
+        function(error){
+
+            document.getElementById("info").innerHTML =
+
+            "GPS Error : " + error.message;
+
+        }
+
+    );
+
+}
