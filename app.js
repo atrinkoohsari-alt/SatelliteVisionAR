@@ -39,3 +39,21 @@ if ("geolocation" in navigator) {
     );
 
 }
+// Compass
+
+if (window.DeviceOrientationEvent) {
+
+    window.addEventListener("deviceorientation", function(event) {
+
+        let heading = event.alpha;
+
+        if (heading !== null) {
+
+            document.getElementById("info").innerHTML +=
+            "<br>Heading : " + Math.round(heading) + "°";
+
+        }
+
+    });
+
+}
