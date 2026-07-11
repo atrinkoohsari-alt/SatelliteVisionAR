@@ -49,7 +49,7 @@ if (window.DeviceOrientationEvent) {
 
         if (heading !== null) {
 
-            document.getElementById("info").innerHTML +=
+            document.getElementById("info").innerHTML =
             "<br>Heading : " + Math.round(heading) + "°"
 
 checkDirection(Math.round(heading));
