@@ -57,3 +57,18 @@ if (window.DeviceOrientationEvent) {
     });
 
 }
+// جهت تقریبی ماهواره یاهست در ایران
+const satelliteAzimuth = 238;
+
+// بررسی جهت
+function checkDirection(currentHeading){
+
+    const diff = Math.abs(currentHeading - satelliteAzimuth);
+
+    if(diff < 5){
+        document.getElementById("crosshair").style.background = "lime";
+    }else{
+        document.getElementById("crosshair").style.background = "red";
+    }
+
+                }
