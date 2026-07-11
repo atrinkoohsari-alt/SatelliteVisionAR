@@ -68,16 +68,19 @@ function updateInfo(){
 
 function checkDirection(currentHeading){
 
-    const diff = Math.abs(currentHeading - satelliteAzimuth);
+    let diff = Math.abs(currentHeading - satelliteAzimuth);
 
-    if(diff < 5){
+    // اگر اختلاف از ۱۸۰ بیشتر شد، از مسیر کوتاه‌تر حساب کن
+    if (diff > 180) {
+        diff = 360 - diff;
+    }
 
-        document.getElementById("crosshair").style.background="lime";
-
+    if (diff < 5){
+        document.getElementById("crosshair").style.background = "lime";
+    }else if(diff < 15){
+        document.getElementById("crosshair").style.background = "yellow";
     }else{
-
-        document.getElementById("crosshair").style.background="red";
-
+        document.getElementById("crosshair").style.background = "red";
     }
 
 }
