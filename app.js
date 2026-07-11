@@ -65,6 +65,7 @@ const satelliteAzimuth = 238;
 function checkDirection(currentHeading){
 
     const diff = Math.abs(currentHeading - satelliteAzimuth);
+document.getElementById("info").innerHTML += "<br>Distance : " + diff.toFixed(1) + "°";
 
     if(diff < 5){
         document.getElementById("crosshair").style.background = "lime";
