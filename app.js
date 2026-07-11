@@ -1,76 +1,83 @@
 const video = document.getElementById("camera");
+const info = document.getElementById("info");
 
 navigator.mediaDevices.getUserMedia({
-video:{
-facingMode:"environment"
-}
+    video:{
+        facingMode:"environment"
+    }
 })
 .then(stream=>{
-video.srcObject=stream;
+    video.srcObject=stream;
 })
 .catch(err=>{
-console.log(err);
-document.getElementById("info").innerHTML = err.name + "<br>" + err.message;
+    info.innerHTML = err.name + "<br>" + err.message;
 });
-// گرفتن موقعیت GPS
 
-if ("geolocation" in navigator) {
+let latitude = "";
+let longitude = "";
+let heading = 0;
 
-    navigator.geolocation.getCurrentPosition(
+const satelliteAzimuth = 238;
 
-        function(position){
+if ("geolocation" in navigator){
 
-            document.getElementById("info").innerHTML =
+    navigator.geolocation.getCurrentPosition(function(position){
 
-            "Latitude : " + position.coords.latitude + "<br>" +
+        latitude = position.coords.latitude.toFixed(6);
+        longitude = position.coords.longitude.toFixed(6);
 
-            "Longitude : " + position.coords.longitude;
+        updateInfo();
 
-        },
+    },function(error){
 
-        function(error){
+        info.innerHTML = "GPS Error : " + error.message;
 
-            document.getElementById("info").innerHTML =
-
-            "GPS Error : " + error.message;
-
-        }
-
-    );
+    });
 
 }
-// Compass
 
-if (window.DeviceOrientationEvent) {
+if(window.DeviceOrientationEvent){
 
-    window.addEventListener("deviceorientation", function(event) {
+    window.addEventListener("deviceorientation",function(event){
 
-        let heading = event.alpha;
+        if(event.alpha !== null){
 
-        if (heading !== null) {
+            heading = Math.round(event.alpha);
 
-            document.getElementById("info").innerHTML =
-            "<br>Heading : " + Math.round(heading) + "°"
+            updateInfo();
 
-checkDirection(Math.round(heading));
+            checkDirection(heading);
+
         }
 
     });
 
 }
-// جهت تقریبی ماهواره یاهست در ایران
-const satelliteAzimuth = 238;
 
-// بررسی جهت
+function updateInfo(){
+
+    const diff = Math.abs(heading - satelliteAzimuth);
+
+    info.innerHTML =
+    "Latitude : " + latitude +
+    "<br>Longitude : " + longitude +
+    "<br><br>Heading : " + heading + "°" +
+    "<br>Distance : " + diff + "°";
+
+}
+
 function checkDirection(currentHeading){
 
     const diff = Math.abs(currentHeading - satelliteAzimuth);
-document.getElementById("info").innerHTML += "<br>Distance : " + diff.toFixed(1) + "°";
 
     if(diff < 5){
-        document.getElementById("crosshair").style.background = "lime";
+
+        document.getElementById("crosshair").style.background="lime";
+
     }else{
-        document.getElementById("crosshair").style.background = "red";
+
+        document.getElementById("crosshair").style.background="red";
+
     }
 
-                }
+}
