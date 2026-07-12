@@ -1,6 +1,7 @@
 const video = document.getElementById("camera");
 const info = document.getElementById("info");
-
+const satelliteSelect = document.getElementById("satelliteSelect");
+let currentSatellite = satellites[0];
 navigator.mediaDevices.getUserMedia({
     video:{
         facingMode:"environment"
@@ -17,7 +18,7 @@ let latitude = "";
 let longitude = "";
 let heading = 0;
 
-const satelliteAzimuth = 238;
+let satelliteAzimuth = 238;
 
 if ("geolocation" in navigator){
 
@@ -84,3 +85,8 @@ function checkDirection(currentHeading){
     }
 
 }
+satelliteSelect.addEventListener("change", function () {
+    currentSatellite = satellites[this.value];
+
+    updateInfo();
+});
