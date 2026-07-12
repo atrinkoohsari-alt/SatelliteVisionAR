@@ -27,7 +27,7 @@ if ("geolocation" in navigator){
         latitude = position.coords.latitude.toFixed(6);
         longitude = position.coords.longitude.toFixed(6);
 
-        updateInfo();
+        // updateInfo();
 
     },function(error){
 
