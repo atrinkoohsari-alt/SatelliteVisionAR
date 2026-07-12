@@ -86,7 +86,12 @@ function checkDirection(currentHeading){
 
 }
 satelliteSelect.addEventListener("change", function () {
+    satelliteSelect.addEventListener("change", function () {
+
     currentSatellite = satellites[this.value];
 
+    satelliteAzimuth = currentSatellite.azimuth;
+
     updateInfo();
+
 });
