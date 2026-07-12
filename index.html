@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="fa">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Satellite Vision</title>
+
+<title>Satellite Vision AR</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -13,22 +18,27 @@
 <video id="camera" autoplay playsinline></video>
 
 <div id="crosshair">+</div>
-<select id="satelliteSelect">
-    <option value="0">Yahsat 52.5E</option>
-    <option value="1">TurkmenAlem 52E</option>
-    <option value="2">Hotbird 13E</option>
-    <option value="3">Astra 19.2E</option>
-    <option value="4">Nilesat 7W</option>
-    <option value="5">Eutelsat 7E</option>
-    <option value="6">TürkmenÄlem/MonacoSat</option>
-    <option value="7">Starlink</option>
-</select>
+
+<div id="satelliteBar">
+
+<button id="prevSatellite">◀</button>
+
+<span id="satelliteName">Yahsat 52.5E</span>
+
+<button id="nextSatellite">▶</button>
+
+</div>
+
 <div id="info">
-در حال آماده‌سازی...
+
+در حال آماده سازی...
+
 </div>
 
 <script src="satellites.js"></script>
+
 <script src="app.js"></script>
 
 </body>
-  </html>
+
+</html>
