@@ -62,10 +62,19 @@ function getSatelliteAzimuth(){
 
     const sat = satellites[currentIndex];
 
-    if(sat.type == "starlink")
+    if(sat.type == "starlink"){
         return null;
+    }
 
-    return 180 + (sat.longitude - Number(longitude));
+    if(latitude == "" || longitude == ""){
+        return null;
+    }
+
+    return calculateAzimuth(
+        Number(latitude),
+        Number(longitude),
+        sat.longitude
+    );
 
 }
 
