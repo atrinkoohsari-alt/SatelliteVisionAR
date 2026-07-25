@@ -25,3 +25,24 @@ function calculateAzimuth(latitude, longitude, satelliteLongitude){
 
     return azimuth;
 }
+function calculateElevation(latitude, longitude, satelliteLongitude){
+
+    const lat = toRadians(latitude);
+
+    const dLon = toRadians(satelliteLongitude - longitude);
+
+    const r = 42164 / 6378;
+
+    const cosPsi =
+        Math.cos(lat) *
+        Math.cos(dLon);
+
+    const elevation =
+        Math.atan(
+            (cosPsi - (1 / r)) /
+            Math.sqrt(1 - cosPsi * cosPsi)
+        );
+
+    return toDegrees(elevation);
+
+}
