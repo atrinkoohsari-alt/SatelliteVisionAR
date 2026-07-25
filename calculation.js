@@ -46,3 +46,14 @@ function calculateElevation(latitude, longitude, satelliteLongitude){
     return toDegrees(elevation);
 
 }
+function calculateSkew(latitude, longitude, satelliteLongitude){
+
+    const lat = toRadians(latitude);
+    const dLon = toRadians(satelliteLongitude - longitude);
+
+    let skew = Math.atan(
+        Math.sin(dLon) / Math.tan(lat)
+    );
+
+    return toDegrees(skew);
+}
