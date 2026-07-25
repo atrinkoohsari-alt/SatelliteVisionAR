@@ -83,7 +83,16 @@ function updateInfo(){
     satelliteName.innerText = satellites[currentIndex].name;
 
     let az = getSatelliteAzimuth();
-
+    let elevation = calculateElevation(
+    Number(latitude),
+    Number(longitude),
+    satellites[currentIndex].longitude
+);
+let skew = calculateSkew(
+Number(latitude),
+Number(longitude),
+satellites[currentIndex].longitude
+);
     if(az == null){
 
         info.innerHTML =
@@ -107,6 +116,8 @@ function updateInfo(){
     "<br>Longitude : " + longitude +
     "<br><br>Satellite : " + satellites[currentIndex].name +
     "<br>Azimuth : " + Math.round(az) + "°" +
+    "<br>Elevation : " + elevation.toFixed(1) + "°" +
+    "<br>LNB Skew : " + skew.toFixed(1) + "°" +
     "<br>Heading : " + heading + "°" +
     "<br>Distance : " + Math.round(diff) + "°";
 
