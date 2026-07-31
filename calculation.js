@@ -6,32 +6,35 @@ function toDegrees(radians){
     return radians * 180 / Math.PI;
 }
 
+// محاسبه آزیموت واقعی
 function calculateAzimuth(latitude, longitude, satelliteLongitude){
 
     const lat = toRadians(latitude);
     const dLon = toRadians(satelliteLongitude - longitude);
 
-    let azimuth = Math.atan(
-        Math.tan(dLon) / Math.sin(lat)
+    let az = Math.atan2(
+        Math.tan(dLon),
+        Math.sin(lat)
     );
 
-    azimuth = toDegrees(azimuth);
+    az = toDegrees(az);
 
-    if(dLon > 0){
-        azimuth = 180 - azimuth;
-    }else{
-        azimuth = 180 + Math.abs(azimuth);
-    }
+    az = 180 - az;
 
-    return azimuth;
+    if(az < 0) az += 360;
+    if(az > 360) az -= 360;
+
+    return az;
+
 }
+
+// محاسبه ارتفاع
+
 function calculateElevation(latitude, longitude, satelliteLongitude){
 
     const lat = toRadians(latitude);
 
     const dLon = toRadians(satelliteLongitude - longitude);
-
-    const r = 42164 / 6378;
 
     const cosPsi =
         Math.cos(lat) *
@@ -39,21 +42,30 @@ function calculateElevation(latitude, longitude, satelliteLongitude){
 
     const elevation =
         Math.atan(
-            (cosPsi - (1 / r)) /
-            Math.sqrt(1 - cosPsi * cosPsi)
+            (cosPsi - 0.1512) /
+            Math.sqrt(1 - cosPsi*cosPsi)
         );
 
     return toDegrees(elevation);
 
 }
+
+// محاسبه چرخش LNB
+
 function calculateSkew(latitude, longitude, satelliteLongitude){
 
     const lat = toRadians(latitude);
-    const dLon = toRadians(satelliteLongitude - longitude);
 
-    let skew = Math.atan(
-        Math.sin(dLon) / Math.tan(lat)
+    const dLon =
+        toRadians(
+            satelliteLongitude - longitude
+        );
+
+    return toDegrees(
+        Math.atan(
+            Math.sin(dLon) /
+            Math.tan(lat)
+        )
     );
 
-    return toDegrees(skew);
 }
