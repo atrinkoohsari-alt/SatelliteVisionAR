@@ -69,3 +69,4 @@ function calculateSkew(latitude, longitude, satelliteLongitude){
     );
 
 }
+ 
